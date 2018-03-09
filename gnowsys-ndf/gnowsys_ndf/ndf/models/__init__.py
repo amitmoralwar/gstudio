@@ -21,6 +21,7 @@ from .models_utils import *
 from .db_utils import *
 
 
+
 node_collection = db["Nodes"].Node
 triple_collection = db["Triples"].Triple
 benchmark_collection = db["Benchmarks"]

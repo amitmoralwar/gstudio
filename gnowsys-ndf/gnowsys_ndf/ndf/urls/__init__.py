@@ -17,6 +17,12 @@ from gnowsys_ndf.ndf.views.methods import tag_info
 from gnowsys_ndf.ndf.views.custom_app_view import custom_app_view, custom_app_new_view
 from gnowsys_ndf.ndf.views import rpc_resources
 
+##############################################
+
+from gnowsys_ndf.ndf.views.home import moauth
+from gnowsys_ndf.ndf.views.mlogin import *
+##############################################
+
 if GSTUDIO_SITE_NAME.lower() == 'clix':
     login_template = 'registration/login_clix.html'
     logout_template = "ndf/landing_page_clix.html"
@@ -27,7 +33,7 @@ else:
 urlpatterns = patterns('',
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^pref_lang/$', include('gnowsys_ndf.ndf.urls.languagepref')),
-
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     # gstudio admin url's
     (r'^admin/', include('gnowsys_ndf.ndf.urls.gstudio_admin')),
 
@@ -214,6 +220,14 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', auth_views.login ,{'template_name': login_template}, name='login'),
     url(r'^accounts/logout/$', auth_views.logout ,{'template_name': logout_template}, name='logout'),
     url(r'^accounts/', include('registration_email.backends.default.urls')),
+
+    #################################################
+
+    url(r'^accounts/login_test_view/$', moauth , name='login_view'),
+
+    
+
+    ################################################
 
    # --end of django-registration
 
