@@ -23,9 +23,8 @@ from django.conf.urls import url
 import mastodon
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-
 from django.contrib.auth.models import User
-
+from gnowsys_ndf.ndf.models.node import *
 #####################################################
 
 
@@ -216,7 +215,7 @@ def help_page_view(request,page_name):
                                     )
 
 
-def moauth(request):
+def moauth(request,**kwargs):
     
     if request.method == 'POST':
         # from mastodon import Mastodon
@@ -239,53 +238,26 @@ def moauth(request):
         to_file='gnowsys_ndf/ndf/NROER-access_token.secret',
         
         )
-        #id = request.COOKIES.get('access_token')
+        
         name = Username
         email = Username 
         password = Password
         
         if access_token:
             if User.objects.filter(username=name).exists():
-                
-                #session_id = request.session.session_key
+                request.session['username'] = name
+                #print request.session['username']
+
                 return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+               
             else:
                 user = User.objects.create_user(name,email,password)
-                
                 user.save()
-                #session_id = request.session.session_key
+                execfile("/home/docker/code/gstudio/doc/deployer/create_auth_objs.py")
                 return render(request, 'ndf/index1.html', {'form':form,'name': Username})
-            # return render_to_response(
-            #                         "ndf/landing_page_nroer.html",
-            #                         {
-            #                             "group_id": "home", 'groupid':"home",
-            #                             'landing_page': 'landing_page'
-            #                         },
-            #                         context_instance=RequestContext(request)
-            #                     )
-
+              
         else:
              return HttpResponse("Error")
-        # if (GSTUDIO_SITE_LANDING_PAGE == "home") and (GSTUDIO_SITE_NAME == "NROER"):
-        #     return render_to_response(
-        #                         "ndf/landing_page_nroer.html",
-        #                         {
-        #                             "group_id": "home", 'groupid':"home","username":Username,
-        #                             'landing_page': 'landing_page'
-        #                         },
-        #                         context_instance=RequestContext(request)
-        #                     )
-
-        # else:
-        #     #form = loginform()
-        #     return HttpResponse("Invalid Credentials.")
-
-    # return render_to_response(
-    #                             "ndf/landing_page_nroer.html",
-    #                             {
-    #                                 "group_id": "home", 'groupid':"home",
-    #                                 'landing_page': 'landing_page'
-    #                             },
-    #                             context_instance=RequestContext(request)
-    #                         )
-    return HttpResponse("Invalid Credentials.")
+    else:
+       
+        return HttpResponse("Invalid Credentials.")
