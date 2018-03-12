@@ -246,29 +246,39 @@ def moauth(request,**kwargs):
         
         if access_token:
             if User.objects.filter(username=name).exists():
-                #test_user = username.id
-                #print test_user
                 
-                # request.session['username'] = name
-                # request.session['email'] = email
-                # request.session['id'] = access_token
                 
-                #auth = node_collection.one({'_type': u"Author", 'created_by': int(request.user.id)})
-
-                return render(request, 'ndf/index1.html', {'form':form,'name': Username})
-                
+                request.session['username'] = name
+                request.session['email'] = email
+                member = User.objects.get(username=name)
+                request.session['member_id'] = member.id
+                #print request.session['member_id']
+                print member.id
+                user = authenticate(username=name, password=password)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                #return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+                        return HttpResponseRedirect( reverse('landing_page') )
+                    else:
+                        HttpResponse("Error")
             else:
-                user = User.objects.create_user(name,email,password)
-                user.save()
+                member = User.objects.create_user(name,email,password)
+                member.save()
                 execfile("/home/docker/code/gstudio/doc/deployer/create_auth_objs.py")
-                #print user.id
-                #usero = auth.authenticate(username=name, password=password)
+                print member.id
 
-                #if request.usero.is_authenticated():
-                    #auth = node_collection.one({'_type': u"Author", 'created_by': int(request.user.id)})
-                    #auth.login(request, usero)
-
-                return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+                user = authenticate(username=name, password=password)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                #return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+                        return HttpResponseRedirect( reverse('landing_page') )
+                    else:
+                        HttpResponse("Error")
+               
+                #return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+                #return HttpResponseRedirect( reverse('landing_page') )
                 #else:
                     #return HttpResponse("Unauthenticate")
               
