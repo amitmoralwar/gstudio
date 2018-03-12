@@ -21,6 +21,7 @@ from gnowsys_ndf.ndf.views import rpc_resources
 
 from gnowsys_ndf.ndf.views.home import moauth
 from gnowsys_ndf.ndf.views.mlogin import *
+
 ##############################################
 
 if GSTUDIO_SITE_NAME.lower() == 'clix':

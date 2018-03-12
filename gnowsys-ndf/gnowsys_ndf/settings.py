@@ -3,6 +3,9 @@
 # imports from python libraries
 import os
 import djcelery
+#from gnowsys_ndf.ndf.models.mastodon_model import CustomUser
+
+
 
 # imports from core django libraries
 # from django.conf import global_settings
@@ -14,7 +17,7 @@ import djcelery
 # from gnowsys_ndf.ndf.utils import (is_dir_exists, ensure_dir, get_current_dbs_path,
 #     move_file_or_dirctory)
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 TEMPLATE_DEBUG = DEBUG
@@ -325,6 +328,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+
+
 # Don't edit default database's NAME attribute
 # If overridden in local settings file, then
 # follow the same pattern and edit only the database-name
@@ -442,10 +448,12 @@ MIDDLEWARE_CLASSES = (
 
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
     # gstudio custom middleware(s):
     'gnowsys_ndf.ndf.middleware.SetCookie.UserId',
     'gnowsys_ndf.ndf.middleware.SetData.Author',
+    #'ndf.middleware.StackOverflowMiddleware',
     # 'gnowsys_ndf.ndf.middleware.Buddy.BuddySession',
     # 'gnowsys_ndf.ndf.middleware.UserRestrictMiddleware.UserRestrictMiddleware',
 
@@ -487,6 +495,8 @@ CELERY_IMPORTS = ("gnowsys_ndf.ndf.views.tasks")
 # # BROKER_URL = 'mongodb://localhost:27017/' + DATABASES['mongodb']['NAME']
 BROKER_URL = 'amqp://'
 
+
+
 INSTALLED_APPS = (
     'gnowsys_ndf.ndf',
     # 'dlkit',
@@ -501,6 +511,8 @@ INSTALLED_APPS = (
     'notification',
     'pagination',
     'captcha',
+    'oauth2_provider',
+
     # 'gnowsys_ndf.benchmarker',
     # 'django.contrib.flatpages',   #textb
     # 'django_extensions',          #textb
@@ -522,6 +534,7 @@ INSTALLED_APPS = (
 AUTHENTICATION_BACKENDS = (
     'registration_email.auth.EmailBackend',
 )
+
 
 ACCOUNT_ACTIVATION_DAYS = 2  # Two days for activation.
 
@@ -666,6 +679,17 @@ exported html form
 """
 
 from django.conf import settings
+
+###########################################
+
+# from gnowsys_ndf.ndf.models.mastodon_model import MyUserManager
+
+
+
+
+# AUTH_USER_MODEL = 'MyUserManager'
+
+###########################################
 
 MARKUP_LANGUAGE = getattr(settings, 'GSTUDIO_MARKUP_LANGUAGE', 'html')
 

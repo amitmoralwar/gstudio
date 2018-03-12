@@ -25,6 +25,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from gnowsys_ndf.ndf.models.node import *
+from django.contrib import auth
 #####################################################
 
 
@@ -245,16 +246,31 @@ def moauth(request,**kwargs):
         
         if access_token:
             if User.objects.filter(username=name).exists():
-                request.session['username'] = name
-                #print request.session['username']
+                #test_user = username.id
+                #print test_user
+                
+                # request.session['username'] = name
+                # request.session['email'] = email
+                # request.session['id'] = access_token
+                
+                #auth = node_collection.one({'_type': u"Author", 'created_by': int(request.user.id)})
 
                 return render(request, 'ndf/index1.html', {'form':form,'name': Username})
-               
+                
             else:
                 user = User.objects.create_user(name,email,password)
                 user.save()
                 execfile("/home/docker/code/gstudio/doc/deployer/create_auth_objs.py")
+                #print user.id
+                #usero = auth.authenticate(username=name, password=password)
+
+                #if request.usero.is_authenticated():
+                    #auth = node_collection.one({'_type': u"Author", 'created_by': int(request.user.id)})
+                    #auth.login(request, usero)
+
                 return render(request, 'ndf/index1.html', {'form':form,'name': Username})
+                #else:
+                    #return HttpResponse("Unauthenticate")
               
         else:
              return HttpResponse("Error")
