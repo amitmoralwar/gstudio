@@ -555,11 +555,11 @@ Still keeping for future ref (if needed).
                       Download
                     </a><br>
                     {% else %}
-                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename }}">
-                      Download as webm
-                    </a><br>
-                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename }}">
+                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename.0 }}">
                       Download as mp4
+                    </a><br>
+                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename.1 }}">
+                      Download as webm
                     </a><br>
                     {% endif %} 
                 {% endif %}
