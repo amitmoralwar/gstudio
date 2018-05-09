@@ -548,12 +548,24 @@ Still keeping for future ref (if needed).
                 </br>
                 {% endif %}
 
-            {% if node.if_file.mime_type %}
+            {% if 'video' in node.if_file.mime_type %}
                 {% if not node.collection_set and "Jsmol" not in node.member_of_names_list%}
-                <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename }}">
-                  Download
-                </a>
+                    {% if node.if_file.original.relurl == node.if_file.mid.relurl%}
+                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename }}">
+                      Download
+                    </a><br>
+                    {% else %}
+                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename.0 }}">
+                      Download as mp4
+                    </a><br>
+                    <a class="button tiny" title="Click here to Download" href="{% url 'read_file' group_name_tag node download_filename %}" download="{{ download_filename.1 }}">
+                      Download as webm
+                    </a><br>
+                    {% endif %} 
                 {% endif %}
+                
+            {% else %}
+
 
 
             {% endif %}
