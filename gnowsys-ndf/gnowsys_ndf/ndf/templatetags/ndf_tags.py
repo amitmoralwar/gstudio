@@ -3272,12 +3272,6 @@ def get_sg_member_of(group_id):
 
 	sg_member_of_list = []
 	# get all underlying groups
-<<<<<<< HEAD
-	group_obj = get_group_name_id(group_id, get_obj=True)
-	if group_obj:
-		group_id = group_obj._id
-		group_name = group_obj.name
-=======
 	# group_obj = get_group_name_id(group_id, get_obj=True)
 	# if group_obj:
 	# 	group_id = group_obj._id
@@ -3289,7 +3283,6 @@ def get_sg_member_of(group_id):
 
 	group_obj = node_collection.one({'_id': ObjectId(group_id)})
 
->>>>>>> d77e9cc8ef2af4426b3aceaba52353b2cbc1deb5
 	# Fetch post_node of group
 	if group_obj:
 		if "post_node" in group_obj:
@@ -4350,6 +4343,6 @@ def join_with_commas(obj_list):
     else:    
         return ", ".join(unicode(obj) for obj in obj_list[:l-1]) \
                 + " and " + unicode(obj_list[l-1])
->>>>>>> d77e9cc8ef2af4426b3aceaba52353b2cbc1deb5
+
 
 
