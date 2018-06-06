@@ -139,10 +139,9 @@ def get_site_variables():
 
 	#site_var['HEADER_LANGUAGES'] = HEADER_LANGUAGES
 	site_var['GSTUDIO_ELASTIC_SEARCH'] = GSTUDIO_ELASTIC_SEARCH
-<<<<<<< HEAD
-=======
+
 	site_var['TESTING_VARIABLE_FOR_ES'] = TESTING_VARIABLE_FOR_ES
->>>>>>> d77e9cc8ef2af4426b3aceaba52353b2cbc1deb5
+
 
 
 
@@ -4298,10 +4297,6 @@ def get_header_lang(lang):
             return each_lang[1]
     return lang
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d77e9cc8ef2af4426b3aceaba52353b2cbc1deb5
 #convert 13 digit number to slash date format 
 
 @get_execution_time
@@ -4323,8 +4318,6 @@ def convert_date_string_to_date(your_timestamp):
 def cal_length(string):
 	return len(str(string))
 
-<<<<<<< HEAD
-=======
 @get_execution_time
 @register.assignment_tag
 def get_member_of_list(node_ids):
