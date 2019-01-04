@@ -20,6 +20,9 @@ from gnowsys_ndf.ndf.views import rpc_resources
 ################################################
 #Middleware for login with mastodon oauth
 from gnowsys_ndf.ndf.middleware.oauth_middleware import mastodon_login 
+
+from gnowsys_ndf.ndf.middleware.testing import user_json
+
 ################################################
 from gnowsys_ndf.ndf.views.es_analytics import get_analytics
     
@@ -32,6 +35,8 @@ else:
     login_template = 'registration/login.html'
     logout_template = 'registration/logout.html'
     login_instance_mastodon=mastodon_login()
+    login_api = user_json()
+
 urlpatterns = []
 
 if GSTUDIO_SITE_NAME != "metaStudio":
@@ -266,6 +271,8 @@ urlpatterns += patterns('',
     #################################################
 
     url(r'^accounts/login_test_view/$', login_instance_mastodon.moauth , name='login_view'),
+
+    url('accounts/login_view/', login_api.index, name='login_api'), 
     ################################################
 
    (r'^status/cache/$', 'gnowsys_ndf.ndf.views.cache.cache_status'),

@@ -1037,6 +1037,11 @@ if LOGIN_WITH_MASTODON:
     MIDDLEWARE_CLASSES += ('gnowsys_ndf.ndf.middleware.oauth_middleware.mastodon_login',)
     AUTHENTICATION_BACKENDS = ('gnowsys_ndf.ndf.middleware.oauth_middleware.CustomBackendAuthenticationForDjango',)
 
+USER_JSON = True
+if USER_JSON:
+    MIDDLEWARE_CLASSES += ('gnowsys_ndf.ndf.middleware.testing.user_json',)
+
+
 # Captcha settings
 CAPTCHA_CHALLENGE_FUNCT =  'captcha.helpers.random_char_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
@@ -1094,9 +1099,9 @@ GSTUDIO_ELASTIC_SEARCH_PASSWORD = ""
 GSTUDIO_DOCUMENT_MAPPING = '/data'
 GSTUDIO_ELASTIC_SEARCH = False
 GSTUDIO_ELASTIC_SEARCH_PROTOCOL = 'http' # we can use http or https protocol
-GSTUDIO_ELASTIC_SEARCH_ALIAS = 'gsearch'
-GSTUDIO_ELASTIC_SEARCH_SUPERUSER = ''
-GSTUDIO_ELASTIC_SEARCH_SUPERUSER_PASSWORD = ''
+GSTUDIO_ELASTIC_SEARCH_ALIAS = '14.139.123.5'
+GSTUDIO_ELASTIC_SEARCH_SUPERUSER = 'elastic'
+GSTUDIO_ELASTIC_SEARCH_SUPERUSER_PASSWORD = 'changeme'
 GSTUDIO_ELASTIC_SEARCH_PORT = '9200'
 TESTING_VARIABLE_FOR_ES = False
 GSTUDIO_ELASTIC_SEARCH_IN_NODE_CLASS = False

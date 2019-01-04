@@ -40,11 +40,17 @@ position: relative !important;
 
 			{% endif %}
 
-		{%if site.LOGIN_WITH_MASTODON %}
-			<form method="post" id="loginSubmit" action="{% url 'login_view' %}" data-abide>
+		{%if site.USER_JSON %}
+			
+			<form method="post" id="loginSubmit" action="{% url 'login_api' %}" data-abide>
+			
 
 		{% else %}
+			{% comment %}
+			<form method="post" id="loginSubmit" action="{% url 'login_api' %}" data-abide>
+			{% endcomment %}
 			<form method="post" id="loginSubmit" action="{% url 'auth_login' %}" data-abide>
+			
 				
 		{% endif %}
 		{% csrf_token %}
