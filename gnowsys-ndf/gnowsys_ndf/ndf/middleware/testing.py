@@ -15,7 +15,7 @@ class user_json(object):
             user = authenticate(username=Username, password=Password)
 
             username = request.user.username
-            #Email ='admin@gmail.com'
+
             
 
             if user:
